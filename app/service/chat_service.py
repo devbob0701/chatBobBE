@@ -1,22 +1,21 @@
-import os
-from openai import OpenAI
-
-os.environ['OPENAI_API_KEY'] = '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'
+from fastapi import Request
+from langchain_core.runnables import RunnablePassthrough
 
 class ChatService:
-    def chat_by_question(self, question_message: str):
-        client = OpenAI()
-    
-        # ChatCompletion 객체 생성
-        completion = client.chat.completions.create(model="gpt-4", messages=[{"role": "user", "content": question_message}], stream=True)
+    def chat_by_question(self, question_message: str, request: Request):
 
-        # 응답을 저장할 변수
-        full_response = ""
+        # rag_chain 구성
+        rag_chain = (
+                {"context": request.app.state.retriever | self.format_docs, "question": RunnablePassthrough()}
+                | request.app.state.rag_prompt
+                | request.app.state.llm
+        )
 
-        # 스트림으로 받은 내용을 하나의 문자열로 결합
-        for chunk in completion:
-            if chunk.choices[0].delta.content is not None:
-                full_response += chunk.choices[0].delta.content
+        # 질문을 이용해 응답 생성
+        answer = rag_chain.invoke(question_message)
 
-        # 최종 결과 반환
-        return {"message": full_response}
+        return answer
+
+    @staticmethod
+    def format_docs(docs):
+        return "\n\n".join([doc.page_content for doc in docs])
