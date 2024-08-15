@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "chat_bob_be"
+version = "0.1.0"
+description = ""
+authors = ["devBob <devbob0701@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.112.0"
+uvicorn = "^0.30.6"
+openai = "^1.40.6"
+langchain = "^0.2.13"
+langchain-community = "^0.2.12"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
