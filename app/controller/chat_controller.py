@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Request
-from app.service.chat_service import ChatService
+from app.service.chat.chat_service import ChatService
 
 router = APIRouter()
 
@@ -12,6 +12,6 @@ async def chat(request: Request):
 
     # ChatService를 사용하여 질문 처리
     service = ChatService()
-    answer = service.chat_by_question(question_message, session_id, request)
+    answer = service.chat_by_text_question(question_message, session_id, request)
 
     return {"answer": answer}

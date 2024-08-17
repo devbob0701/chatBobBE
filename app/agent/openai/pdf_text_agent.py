@@ -3,19 +3,12 @@ from langchain.agents import create_openai_functions_agent, AgentExecutor
 from langchain_core.runnables import RunnableWithMessageHistory, RunnableConfig
 from langchain_core.tools import create_retriever_tool
 from langchain_openai import ChatOpenAI
-from langchain_community.chat_message_histories import ChatMessageHistory
-from torch.backends.mkl import verbose
 
-from app.service.chat_history_service import get_session_history
-from app.template.chat_prompt_template import ChatPromptTemplates
+from app.service.history.chat_history_service import get_session_history
 
 
-class ChatService:
-    def __init__(self):
-        # ChatPromptTemplates 초기화
-        self.chat_prompt_templates = ChatPromptTemplates()
-
-    def chat_by_question(
+class PdfTextAgent:
+    def pdf_text_agent_process(
             self,
             question_message: str,
             session_id: str,
@@ -60,7 +53,3 @@ class ChatService:
         answer = agent_with_chat_history.invoke({'input' : question_message}, RunnableConfig(configurable={"session_id":session_id}))
 
         return answer
-
-    @staticmethod
-    def format_docs(docs):
-        return "\n\n".join([doc.page_content for doc in docs])
