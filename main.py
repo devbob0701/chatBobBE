@@ -12,6 +12,6 @@ app = FastAPI()
 
 @app.on_event("startup")
 async def startup_event():
-    app.state.retriever, app.state.rag_prompt, app.state.llm = initialize_resources()
+    app.state.retriever, app.state.rag_prompt = initialize_resources()
 
 app.include_router(chat_controller.router)
