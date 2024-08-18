@@ -10,22 +10,7 @@ AI 기능을 위해 OpenAI와 LangChain, HuggingFace 등의 라이브러리를 �
 
 ### PDF 텍스트 에이전트
 
-#### 위치
-
 `app > agent > openai > pdf_text_agent.py`
-
-agent 패키지 하위에 llm 모델별 agent를 생성하여 활용 가능한 구조로 구성
-
-```python
-def pdf_text_agent_process(
-        question_message: str,
-        session_id: str,
-        request: Request
-) -> Any:
-```
-- question_message: 사용자가 입력한 질문 문자열.
-- session_id: 현재 세션의 ID.
-- uest: FastAPI의 Request 객체로, 애플리케이션 상태에 접근하는 데 사용됨.
 
 #### 주요 기능
 
@@ -71,6 +56,15 @@ app
 - **controller**: controller 모음 (현재는 chat_controller만 존재)
 - **dto**: 데이터 저장/로드 관련 패키지 
   - resources > storage 내에 생성되는 chat_data.csv, chat_list.csv 관련 처리를 담당하는 파일들로 구성
+  - 최초 질문을 던지는 경우 user_id와 session_id로 매핑되는 채팅방 생성
+  - chat_data는 메모리에서 관리되다 어플리케이션 종료 시 chat_data.csv 파일에 백업. 이후 어플리케이션 실행 시 chat_data에 딕셔너리 형태로 로드
+    ![image](https://github.com/user-attachments/assets/e1db5206-5384-4f8a-ab84-765ca3482131)
+    
+    ![image](https://github.com/user-attachments/assets/f4dc88b0-453d-4e33-aead-e38f429f02c5)
+    
+    ![image](https://github.com/user-attachments/assets/0066a05e-211a-4b39-ae48-949c0862c75f)
+
+
 - **manager**: 메모리에 올린 데이터를 관리하는 패키지. Redis 등 외부 리소스 사용을 하지 않기 위해 프로세스 상의 메모리에 해당 데이터들이 올라감
 - **service**: service 모음
 - **utils**: 최초 어플리케이션 실행 시점에 retriever와 llm 초기화를 하는 패키지
@@ -157,5 +151,6 @@ app
 
 ## 실행 시 주의 사항
 
-.env 파일에 OPEN_API_KEY, LANCHAIN_API_KEY를 세팅하고 python-dotenv를 통해 세팅하여 실행하므로 
-프로젝트 다운로드 후 .env 파일을 생성하여 위 두개의 키를 추가해야 Agent 생성 가능
+.env 파일에 OPEN_API_KEY, LANCHAIN_API_KEY를 세팅하고 python-dotenv를 통해 세팅하여 실행하므로
+
+프로젝트 다운로드 후 .env 파일을 생성하여 위 두개의 키를 추가해야 Agent 생성 가능 (필요 시 첨부파일 참고)
