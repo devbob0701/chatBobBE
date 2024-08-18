@@ -58,6 +58,7 @@ app
   - resources > storage 내에 생성되는 chat_data.csv, chat_list.csv 관련 처리를 담당하는 파일들로 구성
   - 최초 질문을 던지는 경우 user_id와 session_id로 매핑되는 채팅방 생성
   - chat_data는 메모리에서 관리되다 어플리케이션 종료 시 chat_data.csv 파일에 백업. 이후 어플리케이션 실행 시 chat_data에 딕셔너리 형태로 로드
+    
     ![image](https://github.com/user-attachments/assets/e1db5206-5384-4f8a-ab84-765ca3482131)
     
     ![image](https://github.com/user-attachments/assets/f4dc88b0-453d-4e33-aead-e38f429f02c5)
