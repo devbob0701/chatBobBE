@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
 from app.controller import chat_controller
+from app.utils.chat_history_manager import load_chat_history
 from app.utils.resource_initializer import initialize_resources
 
 load_dotenv()
@@ -23,5 +24,6 @@ app.add_middleware(
 @app.on_event("startup")
 async def startup_event():
     app.state.retriever, app.state.rag_prompt = initialize_resources()
+    load_chat_history()
 
 app.include_router(chat_controller.router)
