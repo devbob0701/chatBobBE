@@ -4,7 +4,7 @@ from langchain_core.runnables import RunnableWithMessageHistory, RunnableConfig
 from langchain_core.tools import create_retriever_tool
 from langchain_openai import ChatOpenAI
 
-from app.service.history.chat_history_service import get_session_history
+from app.service.history.chat_data_service import get_session_history
 
 
 def pdf_text_agent_process(
