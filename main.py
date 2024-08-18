@@ -22,7 +22,7 @@ app.add_middleware(
 
 @app.on_event("startup")
 async def startup_event():
-    #app.state.retriever, app.state.rag_prompt = initialize_resources()
+    app.state.retriever, app.state.rag_prompt = initialize_resources()
     load_chat_list()
     load_chat_data()
 

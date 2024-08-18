@@ -16,6 +16,13 @@ def load_chat_data():
 def get_chat_messages_by_session_id(session_id: str):
     return chat_data.get(session_id, [])
 
+def save_chat_data_on_memory(session_id:str ,input: str, output: str):
+    global chat_data
+    if session_id in chat_data:
+        chat_data[session_id].append({"input" : input, "output": output})
+    else:
+        chat_data[session_id] = [{"input" : input, "output": output}]
+
 # 채팅 기록 저장하기
 def save_chat_data():
     chat_data_dto.save_chat_data(chat_data)

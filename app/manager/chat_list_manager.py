@@ -11,7 +11,6 @@ def save_chat_list(user_id: str, session_id: str, session_name: str):
     if user_id not in chat_list:
         chat_list[user_id] = []
     chat_list[user_id].append({"session_id": session_id, "session_name": session_name})
-    print(f'chat_list : {chat_list}')
     # chat_list를 DTO를 통해 저장
     chat_list_dto.save_chat_list(chat_list)
 
